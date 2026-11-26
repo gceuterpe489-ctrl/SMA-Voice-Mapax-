@@ -1,6 +1,6 @@
 # 🎙️ SMA Voice — AI Dialogue Narration
 
-![Version](https://img.shields.io/badge/version-1.9.9-blue)
+![Version](https://img.shields.io/badge/version-1.9.10-blue)
 ![Platform](https://img.shields.io/badge/platform-Windows-0078D6)
 ![Unity](https://img.shields.io/badge/Unity-Mono%20%7C%20IL2CPP-black)
 ![Status](https://img.shields.io/badge/status-Beta-orange)
