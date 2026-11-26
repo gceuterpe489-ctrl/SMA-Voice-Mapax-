@@ -1,0 +1,4 @@
+# Fresh Windows Python 3.11 x64 environment only; install torch/torchaudio first.
+coqui-tts==0.27.5
+sounddevice>=0.5,<0.6
+numpy>=1.26,<3

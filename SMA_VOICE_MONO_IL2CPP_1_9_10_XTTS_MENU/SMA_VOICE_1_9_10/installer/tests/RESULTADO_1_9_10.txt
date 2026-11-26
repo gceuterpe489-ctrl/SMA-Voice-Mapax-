@@ -1,0 +1,6 @@
+SMA Voice installer 1.9.10
+169 tests passed: python -m unittest discover -s tests -q
+162 previous/revised + 7 tests for XTTS menu source checks, isolated directory allocation, mocked installation commands, processing configuration and seven manuals.
+All C# and runtime Python sources identical to 1.9.9.
+PowerShell menu was statically inspected; Windows BAT/PowerShell, WinGet, network downloads, real XTTS installation, C# compilation and GPU/game playback were not executed.
+New environment selection reserves a new folder; failed attempts can leave a partial environment and consume disk space. Existing environments are untouched.

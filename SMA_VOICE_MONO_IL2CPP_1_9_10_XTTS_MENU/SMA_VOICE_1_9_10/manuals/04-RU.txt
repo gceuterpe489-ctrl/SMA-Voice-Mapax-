@@ -1,0 +1,81 @@
+﻿SMA VOICE — УСТАНОВКА И ПОДДЕРЖКА (РУССКИЙ)
+Установщик 1.9.10 | Движок 1.9.7 | Capture 0.10.13 | AutoStart 1.4.1
+
+1. О МОДЕ
+SMA Voice озвучивает локально через XTTS v2 диалоги в фиксированном окне и всплывающие реплики. Фиксированное окно имеет приоритет; прерванная реплика может начаться заново, пока она актуальна. Windows x64, Some Modeling Agency (SMA, Unity Mono) и Corrupted Modeling Agency (CMA, Unity IL2CPP). Неофициальный независимый мод. Игры, BepInEx, переводчик, Ollama и веса модели не входят в архив. Ниже указаны использованные версии; другие версии требуют проверки.
+
+2. ЗАВИСИМОСТИ — точные имена архивов и ссылки в конце
+SMA: BepInEx 5.4.23.6 x64 и UnityGameTranslator BepInEx5 0.16.1. CMA: BepInEx 6 IL2CPP build 793 x64 и UnityGameTranslator BepInEx6-IL2CPP 0.16.1. Не смешивайте загрузчики. Для новой среды рекомендуется Python 3.11 x64; можно использовать совместимую готовую среду XTTS. Новая установка использует coqui-tts 0.27.5, torch/torchaudio 2.8.0, numpy, sounddevice, CPU или CUDA 12.8 (совместимый драйвер NVIDIA; CPU медленнее). Mono требует компилятор C# .NET Framework 4.x. CMA собирается для net6.0 с SDK .NET 6+; при отсутствии установщик ставит SDK 8 локально. Нужны интернет и место для зависимостей/модели. Прочитайте CPML перед принятием лицензии XTTS. Ollama рекомендуется для локального перевода и необходим для резервного перевода. Загрузите модель командой ниже и оставьте Ollama запущенным; используйте локальный адрес, не облако.
+
+3. ПОРЯДОК УСТАНОВКИ
+1) Создайте резервную копию игры и модов. Полностью распакуйте ZIP SMA Voice в отдельную папку. Закройте игру и процесс озвучивания.
+2) Запустите INSTALAR.bat. Выберите 1) SMA (Mono) или 2) CMA (IL2CPP). Укажите корневую папку игры или её exe. Выбор ручной; установщик проверяет совместимость и не меняет движок.
+3) Меню XTTS отображается всегда: 1 использовать зарегистрированную рабочую среду, 2 выбрать существующую среду XTTS, 3 создать отдельную новую среду без изменения прежней, 4 отменить. Вариант 3 устанавливает Python 3.11 x64 через WinGet при необходимости и предлагает NVIDIA CUDA или CPU; выбор меняет только PROCESSAMENTO. Прочитайте CPML при запросе. SDK .NET для CMA устанавливается при отсутствии.
+4) Установщик проверяет BepInEx и UnityGameTranslator, скачивает только отсутствующие эталонные зависимости и сверяет SHA-256 перед копированием. Существующие файлы не заменяются; устраните указанные конфликты. При ошибке загрузки положите точные ZIP по ссылкам ниже в dependencies/ без распаковки. Если в CMA нет interop, запустите игру, дождитесь BepInEx/interop и закройте игру перед Enter. Обе DLL мода компилируются и устанавливаются.
+5) Отдельно запустите INSTALAR_OLLAMA_E_MODELO.bat: он установит Ollama через WinGet при отсутствии, запустит локальный API и скачает qwen3:4b-instruct (~2,5 ГБ), если модели ещё нет. При отсутствии WinGet установите Ollama с официального сайта и повторите BAT. Другие модели сохраняются. В UnityGameTranslator выберите локальный LLM, http://127.0.0.1:11434, целевой язык и qwen3:4b-instruct. Для новой установки по умолчанию используется qwen3:4b-instruct. Чтобы попробовать другую локальную модель, загрузите её в Ollama и выберите в переводчике и MODELO_OLLAMA файла CONFIGURACOES.txt (или auto для настроек переводчика). Выбор другой модели — ответственность пользователя; скорость и качество не гарантируются.
+6) Запустите игру. Дождитесь READY/PRONTO в SMA_VOICE_*.log и проверьте оба типа диалогов. AutoStart запускает озвучивание, не запускайте второй процесс. При запросе папки модели XTTS Enter оставляет прежнюю папку или стандартный кэш; '-' выбирает стандартный кэш. Первые загрузки и прогрев могут занять время.
+
+4. НАСТРОЙКИ И ОБНОВЛЕНИЕ
+<GAME> — выбранный корень игры, <Documents> — Документы Windows. LOCAL_RUNTIME.txt показывает точный профиль/runtime. CONFIGURACOES.txt — основные настройки: меняйте только значения после '='; true/false, точка для дробей, ms — миллисекунды, S — секунды. Перезапустите игру. MANUAL_CONFIGURACOES.txt — подробная справка на португальском. BepInEx cfg управляют фильтрами персонажей и AutoStart; не отключайте проверку личности. .paths и instalacao.json управляются установщиком. config.json переводчика задаёт язык и перевод. Documents/SMA Voice содержит runtime, голоса, разрешённые WAV, кэш, профили и копии. Для обновления закройте игру, установите в тот же корень: настройки, кэш, голоса сохраняются, недостающие ключи добавляются. Копии заменённых файлов в runtime/backups.
+
+5. ОСНОВНЫЕ КЛЮЧИ (имена не переводить)
+DELAY_CAIXA_NORMAL_MS / FALLBACK_CAIXA_NORMAL_MS и DELAY_BALAO_FLUTUANTE_MS / FALLBACK_BALAO_FLUTUANTE_MS — ожидание стабильного текста/перевода; INTERVALO_CAPTURA_MS / DEDUP_CAPTURA_MS — интервал захвата и окно дублей.
+BUFFER_INICIAL_MS / BUFFER_CAIXA_NORMAL_MS — буфер (увеличить при обрывах); MODO_REPRODUCAO=adaptive/stream/stable (полная фраза). INICIO_CAIXA_POR_SEGMENTO / INICIO_BALAO_POR_SEGMENTO — начало по проверенным сегментам. PROTEGER_AUDIO_MONO и PROTEGER_AUDIO_IL2CPP=true. QUALIDADE_VOZ=original/consistent/expressive; VELOCIDADE_VOZ=1.0 обычная скорость; CACHE_AUDIO, CHUNK_XTTS, PAUSA_ENTRE_FRASES_MS, LATENCIA_AUDIO — кэш и воспроизведение.
+PROCESSAMENTO=auto/cpu/cuda; DISPOSITIVO_AUDIO=auto или индекс; AQUECIMENTO=true; VOZ_PADRAO — встроенный голос. IDIOMA=auto следует переводчику или pt/en/es/ru/zh-cn/ja/fr; IDIOMA_ORIGEM=auto. TRADUCAO=true, MODELO_OLLAMA=auto или установленная модель, TIMEOUT_TRADUCAO_S=25. Без перевода фразы другого языка могут не звучать.
+PRIORIDADE_CAIXA_FIXA=true, IDADE_MAX_CAIXA_FIXA_S=45, IDADE_MAX_EVENTO_S=20 — рекомендуемые значения. INTERVALO_FILA_MS / DEDUP_FILA_MS — опрос и дубли. Реплики прошлой сцены удаляются. ENABLE_CMA_FIXED_BOX / ENABLE_CMA_BARK / ENABLE_MONO_BARK_RECOVERY — специальные маршруты, оставьте true. ENABLE_LOG и ENABLE_INSPECTOR=true для диагностики после перезапуска.
+
+6. СООБЩЕНИЕ ОБ ОШИБКЕ В GITHUB ISSUES
+Включите лог и инспектор, воспроизведите ошибку, по возможности завершите игру нормально. Приложите ТРИ отчёта одной сессии:
+A) ПОЛНЫЙ CMD BepInEx от запуска до ошибки, сохранённый в TXT, либо BepInEx/LogOutput.log или LogOutput.txt с полной сессией. Не только последние строки/скриншот. Если консоли нет, используйте полный лог.
+B) В корне игры запустите SMA_VERIFICAR.bat. Проверяет файлы, хэши, пути, настройки, импорты XTTS и аудиоустройства; не исправляет и не синтезирует. Приложите SMA_VERIFICACAO.txt. Если Python отсутствует и TXT не создан, скопируйте весь CMD.
+C) SMA_DIAGNOSTICO.bat: вариант 1 собирает полный лог мода. При ошибках захвата выберите 2 ПРИ ОТКРЫТОЙ ИГРЕ с видимым фиксированным диалогом, сразу вернитесь Alt+Tab. Через 10 секунд пытается сделать 5 снимков; включает их в DIAGNOSTICO_SMA_VOICE.txt в корне. Приложите TXT и SMA_INSPECTOR_FOCO_*.txt по запросу. Если лога нет, включите ENABLE_LOG и повторите. Автоматической отправки нет.
+Укажите версию SMA Voice, игру/версию, backend, BepInEx, переводчик, Python/XTTS, Windows/GPU, язык, шаги, ожидаемый и фактический результат. Если установщик завершился до создания BAT, приложите полный CMD INSTALAR.bat. Удалите имена пользователей, частные пути, токены/API-ключи, оставьте технические ошибки. Не отправляйте сохранения, карточки, кэш, WAV, веса, DLL игры и config.json с секретами. Issues могут быть публичными.
+
+7. ЛИЦЕНЗИИ
+Независимый мод. BepInEx, Harmony/Il2CppInterop, UnityGameTranslator, Python, PyTorch, Ollama, Qwen и XTTS имеют собственные лицензии. XTTS v2 — CPML; коммерческое использование/распространение не подразумевается. Используйте только разрешённые игры, модели и голоса, принимайте лицензии самостоятельно. Архив не содержит сторонних зависимостей и восстановленных старых DLL. Лицензию SMA Voice смотрите в опубликованном репозитории.
+
+Примечание: целевой язык переводчика имеет приоритет над IDIOMA. MODELO_OLLAMA=qwen3:4b-instruct — значение новой установки; обновление сохраняет прежние значения, включая auto.
+
+8. ССЫЛКИ И ПУТИ
+
+SMA / Mono
+  BepInEx 5.4.23.6: https://github.com/BepInEx/BepInEx/releases/tag/v5.4.23.6
+  File: BepInEx_win_x64_5.4.23.6.zip
+  UnityGameTranslator 0.16.1: https://sourceforge.net/projects/unitygametranslator/files/v0.16.1/
+  File: UnityGameTranslator-BepInEx5-v0.16.1.zip
+
+CMA / IL2CPP
+  BepInEx Bleeding Edge (build 793): https://builds.bepinex.dev/projects/bepinex_be
+  File: BepInEx-Unity.IL2CPP-win-x64-6.0.0-be.793+dbc82f0.zip
+  UnityGameTranslator 0.16.1: https://sourceforge.net/projects/unitygametranslator/files/v0.16.1/
+  File: UnityGameTranslator-BepInEx6-IL2CPP-v0.16.1.zip
+
+UnityGameTranslator documentation: https://unitygametranslator.asymptomatikgames.com/pt-BR/docs
+Source archive: https://sourceforge.net/projects/unitygametranslator/files/v0.16.1/
+BepInEx documentation: https://docs.bepinex.dev/master/articles/user_guide/installation/
+Python 3.11 x64: https://www.python.org/downloads/windows/
+WinGet: https://learn.microsoft.com/windows/package-manager/winget/
+.NET Framework: https://dotnet.microsoft.com/download/dotnet-framework
+.NET SDK 8: https://dotnet.microsoft.com/download/dotnet/8.0
+NuGet: https://api.nuget.org/v3/index.json
+Coqui TTS: https://pypi.org/project/coqui-tts/0.27.5/
+Coqui TTS documentation: https://coqui-tts.readthedocs.io/en/latest/installation.html
+XTTS v2 model and license (CPML): https://huggingface.co/coqui/XTTS-v2
+PyTorch: https://pytorch.org/get-started/previous-versions/
+NVIDIA drivers: https://www.nvidia.com/Download/index.aspx
+Ollama Windows: https://ollama.com/download/windows
+Qwen3 4B Instruct: https://ollama.com/library/qwen3:4b-instruct
+  ollama pull qwen3:4b-instruct
+  ollama list
+  http://127.0.0.1:11434
+
+
+  <GAME>\BepInEx\plugins\SMAVoiceCapture\CONFIGURACOES.txt
+  <GAME>\BepInEx\plugins\SMAVoiceCapture\MANUAL_CONFIGURACOES.txt
+  <GAME>\BepInEx\plugins\SMAVoiceCapture\LOCAL_RUNTIME.txt
+  <GAME>\BepInEx\config\local.sma.voicecapture.cfg
+  <GAME>\BepInEx\config\local.sma.voiceautostart.cfg
+  <GAME>\BepInEx\config\sma-voice-portable.paths
+  <GAME>\BepInEx\plugins\UnityGameTranslator\config.json
+  <GAME>\BepInEx\plugins\config.json (alternative location)
+  <Documents>\TValle Games\Some Modeling Agency\SMA Voice\

@@ -1,0 +1,50 @@
+﻿SMA Voice — Dependency reference files
+SHA-256 of the four archives supplied for this packaging revision. These are local fingerprints, NOT upstream signature verification. Installer 1.9.10 downloads missing dependencies from these pinned URLs and verifies these hashes. If unavailable, place the exact ZIPs (unextracted) in dependencies/. Existing files are preserved; conflicting partial installs require manual resolution.
+
+5b63d7d0e92a2448ccd13b738ff95ff1cc1026c6d718555d4df8e6c824953ac4  BepInEx-Unity.IL2CPP-win-x64-6.0.0-be.793+dbc82f0.zip
+6c57a714a892efb4e9e1fef63d608a3391f30ec984031c465404e4ee381a0755  BepInEx_win_x64_5.4.23.6.zip
+cbee9f2ca94aeea7e70203a95c7f575eacbc12942e80a29bb1702ad1d6536346  UnityGameTranslator-BepInEx5-v0.16.1.zip
+352dd6d113ff7aa203ac0523c88137616d46b8f1b009bae74836f46447909a27  UnityGameTranslator-BepInEx6-IL2CPP-v0.16.1.zip
+
+SMA / Mono
+  BepInEx 5.4.23.6: https://github.com/BepInEx/BepInEx/releases/tag/v5.4.23.6
+  File: BepInEx_win_x64_5.4.23.6.zip
+  UnityGameTranslator 0.16.1: https://sourceforge.net/projects/unitygametranslator/files/v0.16.1/
+  File: UnityGameTranslator-BepInEx5-v0.16.1.zip
+
+CMA / IL2CPP
+  BepInEx Bleeding Edge (build 793): https://builds.bepinex.dev/projects/bepinex_be
+  File: BepInEx-Unity.IL2CPP-win-x64-6.0.0-be.793+dbc82f0.zip
+  UnityGameTranslator 0.16.1: https://sourceforge.net/projects/unitygametranslator/files/v0.16.1/
+  File: UnityGameTranslator-BepInEx6-IL2CPP-v0.16.1.zip
+
+UnityGameTranslator documentation: https://unitygametranslator.asymptomatikgames.com/pt-BR/docs
+Source archive: https://sourceforge.net/projects/unitygametranslator/files/v0.16.1/
+BepInEx documentation: https://docs.bepinex.dev/master/articles/user_guide/installation/
+Python 3.11 x64: https://www.python.org/downloads/windows/
+WinGet: https://learn.microsoft.com/windows/package-manager/winget/
+.NET Framework: https://dotnet.microsoft.com/download/dotnet-framework
+.NET SDK 8: https://dotnet.microsoft.com/download/dotnet/8.0
+NuGet: https://api.nuget.org/v3/index.json
+Coqui TTS: https://pypi.org/project/coqui-tts/0.27.5/
+Coqui TTS documentation: https://coqui-tts.readthedocs.io/en/latest/installation.html
+XTTS v2 model and license (CPML): https://huggingface.co/coqui/XTTS-v2
+PyTorch: https://pytorch.org/get-started/previous-versions/
+NVIDIA drivers: https://www.nvidia.com/Download/index.aspx
+Ollama Windows: https://ollama.com/download/windows
+Qwen3 4B Instruct: https://ollama.com/library/qwen3:4b-instruct
+  ollama pull qwen3:4b-instruct
+  ollama list
+  http://127.0.0.1:11434
+
+PINNED AUTOMATIC DOWNLOAD URLS
+BepInEx_win_x64_5.4.23.6.zip
+  https://github.com/BepInEx/BepInEx/releases/download/v5.4.23.6/BepInEx_win_x64_5.4.23.6.zip
+UnityGameTranslator-BepInEx5-v0.16.1.zip
+  https://downloads.sourceforge.net/project/unitygametranslator/v0.16.1/UnityGameTranslator-BepInEx5-v0.16.1.zip
+BepInEx-Unity.IL2CPP-win-x64-6.0.0-be.793+dbc82f0.zip
+  https://builds.bepinex.dev/projects/bepinex_be/793/BepInEx-Unity.IL2CPP-win-x64-6.0.0-be.793%2Bdbc82f0.zip
+UnityGameTranslator-BepInEx6-IL2CPP-v0.16.1.zip
+  https://downloads.sourceforge.net/project/unitygametranslator/v0.16.1/UnityGameTranslator-BepInEx6-IL2CPP-v0.16.1.zip
+
+Ollama: INSTALAR_OLLAMA_E_MODELO.bat uses WinGet package Ollama.Ollama if missing. Model: qwen3:4b-instruct (about 2.5 GB); existing models are preserved.
