@@ -1,0 +1,81 @@
+﻿SMA VOICE — GUIDE D’INSTALLATION ET D’ASSISTANCE (FRANÇAIS)
+Installateur 1.9.9 | Moteur vocal 1.9.7 | Capture 0.10.13 | AutoStart 1.4.1
+
+1. À PROPOS
+SMA Voice ajoute une voix locale XTTS v2 aux dialogues fixes et bulles flottantes. Le dialogue fixe est prioritaire ; une bulle interrompue peut reprendre depuis le début si elle reste valide. Windows x64, Some Modeling Agency (SMA, Unity Mono) et Corrupted Modeling Agency (CMA, Unity IL2CPP). Mod indépendant non officiel. Jeux, BepInEx, traducteur, Ollama et poids du modèle ne sont pas inclus. Les versions ci-dessous sont celles utilisées en développement ; les autres doivent être testées.
+
+2. DÉPENDANCES — liens et noms exacts en fin de fichier
+SMA : BepInEx 5.4.23.6 x64 et UnityGameTranslator BepInEx5 0.16.1. CMA : BepInEx 6 IL2CPP build 793 x64 et UnityGameTranslator BepInEx6-IL2CPP 0.16.1. Ne mélangez pas les chargeurs. Python 3.11 x64 recommandé pour un nouvel environnement ; un XTTS compatible existant est réutilisable. Nouvelle installation : coqui-tts 0.27.5, torch/torchaudio 2.8.0, numpy, sounddevice, CPU ou CUDA 12.8 (pilote NVIDIA compatible ; CPU plus lent). Mono nécessite le compilateur C# .NET Framework 4.x ; CMA compile net6.0 avec SDK .NET 6+, et installe localement SDK 8 s’il manque. Connexion et espace disque nécessaires pour les téléchargements. Lisez CPML avant d’accepter la licence XTTS. Ollama est recommandé pour la traduction locale et nécessaire en cas de traduction de secours. Téléchargez le modèle indiqué et laissez Ollama actif, adresse locale et non cloud.
+
+3. INSTALLATION DANS L’ORDRE
+1) Sauvegardez le jeu et les mods. Extrayez tout le ZIP SMA Voice dans un dossier séparé. Fermez le jeu et le lecteur vocal.
+2) Lancez INSTALAR.bat. Choisissez manuellement 1) SMA (Mono) ou 2) CMA (IL2CPP). Indiquez le dossier racine ou l’exécutable du jeu. L’installateur valide la compatibilité sans changer votre choix.
+3) Un environnement XTTS enregistré et fonctionnel est réutilisé. Sinon choisissez 1 pour un XTTS existant ou 2 pour en créer un (Python 3.11 x64 via WinGet si absent, venv dédié, NVIDIA CUDA ou CPU). Lisez la licence CPML lorsqu’elle est demandée. Le SDK .NET pour CMA est installé si nécessaire.
+4) L’installateur vérifie BepInEx et UnityGameTranslator, télécharge uniquement les dépendances de référence manquantes et vérifie SHA-256 avant copie. Les fichiers existants ne sont pas écrasés ; corrigez les conflits signalés. Si le téléchargement échoue, placez les ZIP exacts des liens ci-dessous dans dependencies/ sans les extraire. Pour CMA sans interop, lancez le jeu, attendez BepInEx/interop, fermez-le puis appuyez sur Entrée. Les deux DLL du mod sont compilées et installées.
+5) Lancez séparément INSTALAR_OLLAMA_E_MODELO.bat pour installer Ollama via WinGet si absent, démarrer l’API locale et télécharger qwen3:4b-instruct (~2,5 Go) seulement si manquant. Sans WinGet, installez Ollama depuis son site officiel puis relancez le BAT. Les autres modèles sont conservés. Dans UnityGameTranslator, sélectionnez LLM local, http://127.0.0.1:11434, langue cible et qwen3:4b-instruct. Les nouvelles installations utilisent qwen3:4b-instruct par défaut ; pour tester un autre modèle local, installez-le dans Ollama et sélectionnez-le dans le traducteur et MODELO_OLLAMA de CONFIGURACOES.txt (ou auto pour suivre le traducteur). Les modèles alternatifs relèvent du choix de l’utilisateur, sans garantie de performances ou de qualité.
+6) Lancez normalement le jeu. Attendez READY/PRONTO dans SMA_VOICE_*.log et testez les deux dialogues. AutoStart démarre le lecteur ; ne lancez pas un second lecteur. Si un dossier de modèle XTTS personnalisé est demandé, Entrée conserve le précédent ou le cache par défaut ; '-' sélectionne le cache par défaut. Le premier téléchargement et le préchauffage peuvent prendre du temps.
+
+4. CONFIGURATION ET MISE À JOUR
+<GAME> = racine choisie ; <Documents> = Documents Windows. LOCAL_RUNTIME.txt indique le profil/runtime réel. CONFIGURACOES.txt est central : modifiez seulement les valeurs après '=' ; true/false, point décimal, ms millisecondes et S secondes. Redémarrez après modification. MANUAL_CONFIGURACOES.txt est la référence détaillée en portugais. Les cfg BepInEx contrôlent les filtres d’identité et AutoStart ; ne désactivez pas ces filtres. .paths et instalacao.json sont gérés par l’installateur. config.json du traducteur contrôle langue/traduction. Documents/SMA Voice contient runtime, voix enregistrées, WAV autorisés, cache, profils et sauvegardes. Pour mettre à jour, fermez le jeu et réinstallez vers la même racine ; paramètres, cache et voix sont conservés, clés manquantes ajoutées. Fichiers remplacés sauvegardés dans runtime/backups.
+
+5. PRINCIPAUX RÉGLAGES (ne traduisez pas les clés)
+DELAY_CAIXA_NORMAL_MS / FALLBACK_CAIXA_NORMAL_MS et DELAY_BALAO_FLUTUANTE_MS / FALLBACK_BALAO_FLUTUANTE_MS : attente du texte stable/traduction ; INTERVALO_CAPTURA_MS / DEDUP_CAPTURA_MS : intervalle et fenêtre de déduplication.
+BUFFER_INICIAL_MS / BUFFER_CAIXA_NORMAL_MS : augmenter si coupures. MODO_REPRODUCAO=adaptive/stream/stable (phrase entière). INICIO_CAIXA_POR_SEGMENTO / INICIO_BALAO_POR_SEGMENTO : début par segments validés. Gardez PROTEGER_AUDIO_MONO et PROTEGER_AUDIO_IL2CPP=true. QUALIDADE_VOZ=original/consistent/expressive ; VELOCIDADE_VOZ=1.0 normale ; CACHE_AUDIO, CHUNK_XTTS, PAUSA_ENTRE_FRASES_MS, LATENCIA_AUDIO règlent cache et lecture.
+PROCESSAMENTO=auto/cpu/cuda ; DISPOSITIVO_AUDIO=auto ou index ; AQUECIMENTO=true ; VOZ_PADRAO voix intégrée. IDIOMA=auto suit traducteur ou pt/en/es/ru/zh-cn/ja/fr ; IDIOMA_ORIGEM=auto. TRADUCAO=true, MODELO_OLLAMA=auto ou modèle installé, TIMEOUT_TRADUCAO_S=25. Désactiver la traduction peut rendre muettes des phrases d’une autre langue.
+PRIORIDADE_CAIXA_FIXA=true, IDADE_MAX_CAIXA_FIXA_S=45, IDADE_MAX_EVENTO_S=20 recommandés. INTERVALO_FILA_MS / DEDUP_FILA_MS : interrogation et doublons. Les voix de scènes précédentes sont écartées. ENABLE_CMA_FIXED_BOX / ENABLE_CMA_BARK / ENABLE_MONO_BARK_RECOVERY : routes spécifiques, gardez true. ENABLE_LOG et ENABLE_INSPECTOR=true pour diagnostic après redémarrage.
+
+6. SIGNALER UN BUG VIA GITHUB ISSUES
+Activez logs/inspecteur, reproduisez, quittez normalement si possible. Joignez TROIS rapports de la même session :
+A) CMD COMPLET de BepInEx du lancement à l’erreur, enregistré en TXT, ou BepInEx/LogOutput.log ou LogOutput.txt contenant toute la session. Pas seulement les dernières lignes/capture d’écran. Sans console, utilisez le log complet.
+B) Lancez SMA_VERIFICAR.bat à la racine. Vérifie fichiers, hashes, chemins, config, imports XTTS et périphériques audio ; pas de réparation/synthèse. Joignez SMA_VERIFICACAO.txt. Si Python manque et le TXT ne peut être créé, copiez le CMD entier.
+C) SMA_DIAGNOSTICO.bat : 1 collecte le log complet du mod. En cas de capture défaillante, sélectionnez 2 avec JEU OUVERT et dialogue fixe visible, puis revenez immédiatement avec Alt+Tab. Après 10 s, tente 5 instantanés et inclut cette collecte dans DIAGNOSTICO_SMA_VOICE.txt à la racine. Joignez le TXT, et SMA_INSPECTOR_FOCO_*.txt si demandé. Sans log, activez ENABLE_LOG et reproduisez. Aucun envoi automatique.
+Indiquez version SMA Voice, jeu/version, backend, BepInEx, traducteur, Python/XTTS, Windows/GPU, langue, étapes, résultat attendu et constaté. Si installation échoue avant les BAT, joignez le CMD entier de INSTALAR.bat. Masquez noms d’utilisateur, chemins privés, jetons, clés API, sans supprimer les erreurs techniques. Ne joignez pas sauvegardes de jeu, cartes, cache, WAV, poids, DLL du jeu ou config.json avec identifiants. Issues potentiellement publiques.
+
+7. LICENCES ET CRÉDITS
+Mod indépendant. BepInEx, Harmony/Il2CppInterop, UnityGameTranslator, Python, PyTorch, Ollama, Qwen et XTTS conservent leurs licences. XTTS v2 est sous CPML ; ne présumez pas de droits commerciaux/de redistribution. Utilisez jeux, modèles et voix autorisés, acceptez personnellement les licences. Le ZIP ne redistribue pas les dépendances ni anciennes DLL récupérées. Consultez la licence SMA Voice dans le dépôt une fois publié.
+
+Note : la langue cible du traducteur prévaut sur IDIOMA. MODELO_OLLAMA=qwen3:4b-instruct est la valeur d’une nouvelle installation ; les mises à jour préservent les valeurs existantes, dont auto.
+
+8. LIENS DE TÉLÉCHARGEMENT ET CHEMINS
+
+SMA / Mono
+  BepInEx 5.4.23.6: https://github.com/BepInEx/BepInEx/releases/tag/v5.4.23.6
+  File: BepInEx_win_x64_5.4.23.6.zip
+  UnityGameTranslator 0.16.1: https://sourceforge.net/projects/unitygametranslator/files/v0.16.1/
+  File: UnityGameTranslator-BepInEx5-v0.16.1.zip
+
+CMA / IL2CPP
+  BepInEx Bleeding Edge (build 793): https://builds.bepinex.dev/projects/bepinex_be
+  File: BepInEx-Unity.IL2CPP-win-x64-6.0.0-be.793+dbc82f0.zip
+  UnityGameTranslator 0.16.1: https://sourceforge.net/projects/unitygametranslator/files/v0.16.1/
+  File: UnityGameTranslator-BepInEx6-IL2CPP-v0.16.1.zip
+
+UnityGameTranslator documentation: https://unitygametranslator.asymptomatikgames.com/pt-BR/docs
+Source archive: https://sourceforge.net/projects/unitygametranslator/files/v0.16.1/
+BepInEx documentation: https://docs.bepinex.dev/master/articles/user_guide/installation/
+Python 3.11 x64: https://www.python.org/downloads/windows/
+WinGet: https://learn.microsoft.com/windows/package-manager/winget/
+.NET Framework: https://dotnet.microsoft.com/download/dotnet-framework
+.NET SDK 8: https://dotnet.microsoft.com/download/dotnet/8.0
+NuGet: https://api.nuget.org/v3/index.json
+Coqui TTS: https://pypi.org/project/coqui-tts/0.27.5/
+Coqui TTS documentation: https://coqui-tts.readthedocs.io/en/latest/installation.html
+XTTS v2 model and license (CPML): https://huggingface.co/coqui/XTTS-v2
+PyTorch: https://pytorch.org/get-started/previous-versions/
+NVIDIA drivers: https://www.nvidia.com/Download/index.aspx
+Ollama Windows: https://ollama.com/download/windows
+Qwen3 4B Instruct: https://ollama.com/library/qwen3:4b-instruct
+  ollama pull qwen3:4b-instruct
+  ollama list
+  http://127.0.0.1:11434
+
+
+  <GAME>\BepInEx\plugins\SMAVoiceCapture\CONFIGURACOES.txt
+  <GAME>\BepInEx\plugins\SMAVoiceCapture\MANUAL_CONFIGURACOES.txt
+  <GAME>\BepInEx\plugins\SMAVoiceCapture\LOCAL_RUNTIME.txt
+  <GAME>\BepInEx\config\local.sma.voicecapture.cfg
+  <GAME>\BepInEx\config\local.sma.voiceautostart.cfg
+  <GAME>\BepInEx\config\sma-voice-portable.paths
+  <GAME>\BepInEx\plugins\UnityGameTranslator\config.json
+  <GAME>\BepInEx\plugins\config.json (alternative location)
+  <Documents>\TValle Games\Some Modeling Agency\SMA Voice\

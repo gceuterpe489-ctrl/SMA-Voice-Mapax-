@@ -1,0 +1,30 @@
+﻿SMA VOICE 1.9.9 — Installer / Instalador
+Voice engine 1.9.7 | Capture 0.10.13 | AutoStart 1.4.1
+Windows x64 | SMA (Mono) / CMA (IL2CPP)
+
+ANTES DE INSTALAR / BEFORE INSTALLING
+Leia o guia no seu idioma em manuals/. INSTALAR.bat baixa as dependencias ausentes.
+Read the guide in your language in manuals/. INSTALAR.bat downloads missing game dependencies.
+Extract the entire archive before running INSTALAR.bat.
+Choose 1) SMA (Mono) or 2) CMA (IL2CPP), then the game root. No automatic game/backend selection.
+INSTALAR_OLLAMA_E_MODELO.bat installs missing Ollama + qwen3:4b-instruct separately.
+Existing dependencies and user models are preserved. CMA needs a first game launch to generate interop.
+Optional exact ZIPs in dependencies/ are verified before installation.
+Do not separate INSTALAR.bat from installer/.
+
+Português (Brasil)   manuals/01-PT-BR.txt
+English             manuals/02-EN.txt
+Español             manuals/03-ES.txt
+Русский             manuals/04-RU.txt
+简体中文             manuals/05-ZH-CN.txt
+日本語               manuals/06-JA.txt
+Français            manuals/07-FR.txt
+
+SUPPORT / SUPORTE
+After installation, two BATs are placed beside the game executable:
+SMA_VERIFICAR.bat   -> SMA_VERIFICACAO.txt
+SMA_DIAGNOSTICO.bat -> DIAGNOSTICO_SMA_VOICE.txt (option 2: UI snapshots)
+Attach both TXT files + the complete BepInEx console/log to a GitHub Issue.
+Review personal data before sharing. No automatic upload.
+
+Dependencies and model weights are NOT included. See manuals/DEPENDENCY-VERSIONS.txt.
