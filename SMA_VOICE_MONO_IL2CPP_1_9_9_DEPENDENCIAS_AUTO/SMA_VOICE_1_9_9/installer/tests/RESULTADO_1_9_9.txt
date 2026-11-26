@@ -1,6 +1,0 @@
-SMA Voice installer 1.9.9
-162 tests passed: python -m unittest discover -s tests
-155 previous/revised + 7 new dependency installer tests.
-Also installed all four original maintainer-provided ZIP archives into temporary fresh SMA/CMA directories; SHA-256 validation, extracted translator DLL fingerprints and no-download repeat runs passed.
-Windows BAT/PowerShell, WinGet, actual network downloads, game launch/interop generation, C# builds and XTTS/GPU playback were NOT executed here.
-All src/ and runtime/*.py files unchanged from 1.9.8; fresh template default MODELO_OLLAMA=qwen3:4b-instruct, existing configurations preserved.

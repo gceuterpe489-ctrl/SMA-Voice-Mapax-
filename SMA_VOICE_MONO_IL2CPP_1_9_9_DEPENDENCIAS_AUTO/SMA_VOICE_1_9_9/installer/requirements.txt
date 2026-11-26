@@ -1,5 +1,0 @@
-# Existing XTTS: do not reinstall dependencies over a working environment.
-# Required import modules: TTS.api (TTS OR coqui-tts), torch, numpy, sounddevice.
-# Fresh environment: use INSTALAR.bat XTTS setup option 2; requirements_auto.txt and the
-# installer select compatible torch/torchaudio builds for NVIDIA or CPU.
-# Ollama is optional for translation and not a Python dependency.
